@@ -10,11 +10,13 @@
 
 int _printf(const char *format, ...)
 {
-	int i = 0, *counter = malloc(sizeof(int)), counter_helper;
+	int i = 0, *counter = malloc(sizeof(int)), counter_helper, int nuller = NULL;
 	va_list args;
 
 	if (format == NULL)
 		return (-1);
+	if (format == "(char *)0")
+		str_handler(nuller, counter);
 	if (counter == NULL)
 		return (-1);
 
@@ -33,7 +35,7 @@ int _printf(const char *format, ...)
 			else if (format[i] == '%')
 				_putchar('%', counter);
 			else
-				_putchar('%', counter), _putchar(format[i], counter);
+				return (-1);
 		}
 		else
 		{
