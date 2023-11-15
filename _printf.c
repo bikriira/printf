@@ -1,6 +1,8 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdlib.h>
+#include <unistd.h>
+
 
 /**
  * _printf - produces output according to a format
@@ -10,16 +12,11 @@
 
 int _printf(const char *format, ...)
 {
-	int i = 0, *counter = malloc(sizeof(int)), counter_helper, int nuller = NULL;
+	int i = 0, *counter = malloc(sizeof(int)), counter_helper;
 	va_list args;
 
-	if (format == NULL)
+	if (format == NULL || counter == NULL)
 		return (-1);
-	if (format == "(char *)0")
-		str_handler(nuller, counter);
-	if (counter == NULL)
-		return (-1);
-
 	*counter = 0;
 	va_start(args, format);
 	while (format[i] != '\0')
@@ -27,7 +24,9 @@ int _printf(const char *format, ...)
 		if (format[i] == '%' && format[++i])
 		{
 			if (format[i] == 's')
+			{
 				str_handler(va_arg(args, char *), counter);
+			}
 			else if (format[i] == 'c')
 				_putchar(va_arg(args, int), counter);
 			else if (format[i] == 'd')
@@ -61,6 +60,12 @@ void str_handler(char *str, int *counter)
 {
 	int str_indexer = 0;
 
+	if (str == NULL)
+	{
+		write(1, "(null)", 7);
+		*counter += 6;
+		return;
+	}
 	while (str[str_indexer] != '\0')
 	{
 		_putchar(str[str_indexer], counter);
