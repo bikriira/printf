@@ -22,7 +22,7 @@ int _printf(const char *format, ...)
         if (format[i] == '%')
         {
             i++;
-            if (format[i] != '%')
+            if (format[i] == 's' || format[i] == 'c')
             {
                 if (format[i] == 's')
                 {
@@ -38,6 +38,11 @@ int _printf(const char *format, ...)
             {
                 _putchar('%', &counter);
             }
+			else
+			{
+				_putchar('%', &counter);
+				_putchar(format[i], &counter);
+			}
         }
         else
         {
