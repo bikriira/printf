@@ -33,8 +33,6 @@ int _printf(const char *format, ...)
 				print_digit(va_arg(args, int), 10, counter);
 			else if (format[i] == '%')
 				_putchar('%', counter);
-			else
-				return (-1);
 		}
 		else
 		{
