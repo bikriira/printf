@@ -25,6 +25,8 @@ int _printf(const char *format, ...)
 			return (-1);
 		if (format[i] == '%' && format[++i])
 		{
+			if(format[1] == '\0')
+				return (-1);
 			if (format[i] == 's')
 				str_handler(va_arg(args, char *), counter);
 			else if (format[i] == 'c')
