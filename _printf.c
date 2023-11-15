@@ -62,7 +62,7 @@ void str_handler(char *str, int *counter)
 
 	if (str == NULL)
 	{
-		write(1, "(null)", 7);
+		write(1, "(null)", 6);
 		*counter += 6;
 		return;
 	}
