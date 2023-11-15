@@ -15,12 +15,14 @@ int _printf(const char *format, ...)
 	int i = 0, *counter = malloc(sizeof(int)), counter_helper;
 	va_list args;
 
-	if (format == NULL || *format == '%' || counter == NULL)
+	if (format == NULL || counter == NULL)
 		return (-1);
 	*counter = 0;
 	va_start(args, format);
 	while (format[i] != '\0')
 	{
+		if (*format == '%')
+			return (-1);
 		if (format[i] == '%' && format[++i])
 		{
 			if (format[i] == 's')
