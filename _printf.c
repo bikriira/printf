@@ -23,19 +23,18 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%' && format[++i])
 		{
+			if (format[i] == '\0')
+				return (-1);
 			if (format[i] == 's')
-			{
 				str_handler(va_arg(args, char *), counter);
-			}
 			else if (format[i] == 'c')
 				_putchar(va_arg(args, int), counter);
 			else if (format[i] == 'd')
 				print_digit(va_arg(args, int), 10, counter);
 			else if (format[i] == '%')
-			{
-				_putchar('%', counter);
 				_putchar(format[i], counter);
-			}
+			else
+				_putchar('%', counter), _putchar(format[i], counter);
 		}
 		else
 		{
