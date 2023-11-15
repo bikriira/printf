@@ -10,57 +10,42 @@
 
 int _printf(const char *format, ...)
 {
-    int i = 0;
-    int *counter = malloc(sizeof(int));
-	int counter_helper;
-    va_list args;
+	int i = 0, *counter = malloc(sizeof(int)), counter_helper;
+	va_list args;
+
 	if (format == NULL)
-		return -1;
+		return (-1);
 	if (counter == NULL)
-		return -1;
+		return (-1);
+
 	*counter = 0;
-    va_start(args, format);
-    while (format[i] != '\0')
-    {
-        if (format[i] == '%')
-        {
-            i++;
-            if (format[i] == 's' || format[i] == 'c'|| format[i] == 'd')
-            {
-                if (format[i] == 's')
-                {
-                    char *str = va_arg(args, char *);
-                    str_handler(str, counter);
-                }
-                else if (format[i] == 'c')
-                {
-                    _putchar(va_arg(args, int), counter);
-                }
-				else if (format[i] == 'd')
-				{
-					print_digit(va_arg(args, int), 10, counter);
-				}
-            }
-            else if (format[i] == '%')
-            {
-                _putchar('%', counter);
-            }
-			else
-			{
+	va_start(args, format);
+	while (format[i] != '\0')
+	{
+		if (format[i] == '%' && format[++i])
+		{
+			if (format[i] == 's')
+				str_handler(va_arg(args, char *), counter);
+			else if (format[i] == 'c')
+				_putchar(va_arg(args, int), counter);
+			else if (format[i] == 'd')
+				print_digit(va_arg(args, int), 10, counter);
+			else if (format[i] == '%')
 				_putchar('%', counter);
-				_putchar(format[i], counter);
-			}
-        }
-        else
-        {
-            _putchar(format[i], counter);
-        }
-        i++;
-    }
-    va_end(args);
+			else
+				_putchar('%', counter), _putchar(format[i], counter);
+		}
+		else
+		{
+			_putchar(format[i], counter);
+		}
+		i++;
+	}
+
+	va_end(args);
 	counter_helper = *counter;
 	free(counter);
-    return (counter_helper);
+	return (counter_helper);
 }
 
 /**
@@ -82,6 +67,12 @@ void str_handler(char *str, int *counter)
 }
 
 /**
+ * print_digit - Solve the printing of dec or hex acording to base argument
+ * @num: The number to be parsed
+ * @base: The base to consider when parsing the num
+ * @counter: The pointer to the counter address
+ *
+ * Return: void
 */
 
 void print_digit(int num, int base, int *counter)
@@ -101,17 +92,8 @@ void print_digit(int num, int base, int *counter)
 	{
 		int helper1 = num / base;
 		int helper2 = num % base;
-	
+
 		print_digit(helper1, base, counter);
 		print_digit(helper2, base, counter);
 	}
 }
-
-
-
-
-
-
-
-
-
