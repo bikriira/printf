@@ -14,9 +14,10 @@ int _printf(const char *format, ...)
     int *counter = malloc(sizeof(int));
 	int counter_helper;
     va_list args;
-	
 	if (format == NULL)
-		return (-1);
+		return -1;
+	if (counter == NULL)
+		return -1;
 	*counter = 0;
     va_start(args, format);
     while (format[i] != '\0')
