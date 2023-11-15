@@ -15,7 +15,7 @@ int _printf(const char *format, ...)
 	int i = 0, *counter = malloc(sizeof(int)), counter_helper;
 	va_list args;
 
-	if (format == NULL || counter == NULL)
+	if (format == NULL || *format == '%' || counter == NULL)
 		return (-1);
 	*counter = 0;
 	va_start(args, format);
@@ -23,8 +23,6 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%' && format[++i])
 		{
-			if (format[i] == '\0')
-				return (-1);
 			if (format[i] == 's')
 				str_handler(va_arg(args, char *), counter);
 			else if (format[i] == 'c')
