@@ -28,8 +28,10 @@ int _printf(const char *format, ...)
 				str_handler(va_arg(args, char *), counter);
 			else if (format[i] == 'c')
 				_putchar(va_arg(args, int), counter);
-			else if (dixX_check(format[i]))
+			else if (dixX_check(format[i], "di"))
 				print_digit((long)(va_arg(args, int)), format[i], counter);
+			else if (dixX_check(format[i], "xX"))
+				 print_digit((long)(va_arg(args, unsigned int)), format[i], counter);
 			else if (format[i] == '%')
 				_putchar(format[i], counter);
 			else
@@ -56,14 +58,13 @@ int _printf(const char *format, ...)
  * Return: int, returns a truthy value if the character is in "dixX"
 */
 
-int dixX_check(char suspect)
+int dixX_check(char suspect, char *list)
 {
-	char *suported_chars = "dixX";
 	int i = 0;
 
-	while (suported_chars[i] != '\0')
+	while (list[i] != '\0')
 	{
-		if (suported_chars[i] == suspect)
+		if (list[i] == suspect)
 			return (1);
 		i++;
 	}
@@ -115,12 +116,10 @@ void print_digit(long num, char format, int *counter)
 	else if (format == 'x')
 	{
 		base = 16;
-		num = (unsigned)(num);
 	}
 	else if (format == 'X')
 	{
 		base = 16;
-		num = (unsigned)(num);
 		symbols = "0123456789ABCDEF";
 	}
 
