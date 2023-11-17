@@ -31,7 +31,7 @@ int _printf(const char *format, ...)
 			else if (dixX_check(format[i], "di"))
 				print_digit((long)(va_arg(args, int)), format[i], counter);
 			else if (dixX_check(format[i], "xX"))
-				 print_digit((long)(va_arg(args, unsigned int)), format[i], counter);
+				print_digit((long)(va_arg(args, unsigned int)), format[i], counter);
 			else if (format[i] == '%')
 				_putchar(format[i], counter);
 			else
@@ -54,8 +54,8 @@ int _printf(const char *format, ...)
 /**
  * dixX_check - checks if the given character is one of these "dixX"
  * @suspect: the character to be checked
- *
- * Return: int, returns a truthy value if the character is in "dixX"
+ * @list: the list to check from
+ * Return: int, returns a truthy value if the character is in list
 */
 
 int dixX_check(char suspect, char *list)
@@ -98,7 +98,7 @@ void str_handler(char *str, int *counter)
 /**
  * print_digit - Solve the printing of dec or hex acording to base argument
  * @num: The number to be parsed
- * @base: The base to consider when parsing the num
+ * @format: The format to consider when parsing the num
  * @counter: The pointer to the counter address
  *
  * Return: void
