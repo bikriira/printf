@@ -7,7 +7,7 @@
 
 /**
  * _printf - produces output according to a format
- * @format: string that contains the format to print
+ * @format: a string that contains the format to print
  * Return: output to stdout, the standard output stream
 */
 
@@ -55,7 +55,7 @@ int _printf(const char *format, ...)
  * dixX_check - checks if the given character is one of these "dixX"
  * @suspect: the character to be checked
  * @list: the list to check from
- * Return: int, returns a truthy value if the character is in list
+ * Return: int, returns a truthy value if the character is in the list
 */
 
 int dixX_check(char suspect, char *list)
@@ -71,8 +71,9 @@ int dixX_check(char suspect, char *list)
 	return (0);
 }
 
+
 /**
- * str_handler - trigers the _putchar until the whole passed string is done
+ * str_handler - triggers the _putchar until the whole passed string is done
  * @str: the pointer to the string to be printed
  * @counter: the address of where the counter is stolen
  * Return: void
@@ -95,8 +96,9 @@ void str_handler(char *str, int *counter)
 	}
 }
 
+
 /**
- * print_digit - Solve the printing of dec or hex acording to base argument
+ * print_digit - Solve the printing of dec or hex according to the base argument
  * @num: The number to be parsed
  * @format: The format to consider when parsing the num
  * @counter: The pointer to the counter address
