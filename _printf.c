@@ -47,6 +47,15 @@ int _printf(const char *format, ...)
 	free(counter);
 	return (counter_helper);
 }
+
+
+/**
+ * dixX_check - checks if the given character is one of these "dixX"
+ * @suspect: the character to be checked
+ *
+ * Return: int, returns a truthy value if the character is in "dixX"
+*/
+
 int dixX_check(char suspect)
 {
 	char *suported_chars = "dixX";
