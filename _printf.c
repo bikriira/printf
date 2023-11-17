@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 
 
@@ -27,8 +28,8 @@ int _printf(const char *format, ...)
 				str_handler(va_arg(args, char *), counter);
 			else if (format[i] == 'c')
 				_putchar(va_arg(args, int), counter);
-			else if (format[i] == 'd')
-				print_digit(va_arg(args, int), 10, counter);
+			else if (dixX_check(format[i]))
+				print_digit((long)(va_arg(args, int)), format[i], counter);
 			else if (format[i] == '%')
 				_putchar(format[i], counter);
 			else
@@ -45,6 +46,19 @@ int _printf(const char *format, ...)
 	counter_helper = *counter;
 	free(counter);
 	return (counter_helper);
+}
+int dixX_check(char suspect)
+{
+	char *suported_chars = "dixX";
+	int i = 0;
+
+	while (suported_chars[i] != '\0')
+	{
+		if (suported_chars[i] == suspect)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 /**
@@ -80,25 +94,42 @@ void str_handler(char *str, int *counter)
  * Return: void
 */
 
-void print_digit(int num, int base, int *counter)
+void print_digit(long num, char format, int *counter)
 {
 	char *symbols = "0123456789abcdef";
+	int base;
+
+	if (format == 'd' || format == 'i')
+	{
+		base = 10;
+	}
+	else if (format == 'x')
+	{
+		base = 16;
+		num = (unsigned)(num);
+	}
+	else if (format == 'X')
+	{
+		base = 16;
+		num = (unsigned)(num);
+		symbols = "0123456789ABCDEF";
+	}
 
 	if (num < 0)
 	{
 		_putchar('-', counter);
-		print_digit(-(long)num, base, counter);
+		print_digit(-num, format, counter);
 	}
 	else if (num < base)
 	{
 		_putchar(symbols[num], counter);
 	}
-	else if (num > base)
+	else
 	{
-		int helper1 = num / base;
-		int helper2 = num % base;
+		long helper1 = num / base;
+		long helper2 = num % base;
 
-		print_digit(helper1, base, counter);
-		print_digit(helper2, base, counter);
+		print_digit(helper1, format, counter);
+		print_digit(helper2, format, counter);
 	}
 }
